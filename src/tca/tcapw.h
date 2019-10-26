@@ -67,7 +67,7 @@ typedef struct {
  * representation of a user's password.
  */
 typedef struct {
-	char hpw[tcapw_LEN_HASHPW] PACK;
+	char hpw[tcapw_LEN_HASHPW];
 } tcapw_hpw_t;
 
 /* Hashed passwords are stored on disk as an encrypted array of this
@@ -81,9 +81,9 @@ typedef struct {
 #define tcapw_entry_CLIENT_SET_FLAGS (tcapw_entry_FLAGS_EMAIL_PRIVATE)
 typedef struct {
 	tcapw_uid_t uid PACK;
-	tcapw_uname_t uname PACK;
-	tcapw_hpw_t hpw PACK;
-	char email[tcapw_MAXLEN_EMAIL] PACK;		/* User's email address */
+	tcapw_uname_t PACK uname;
+	tcapw_hpw_t PACK hpw;
+	char email[tcapw_MAXLEN_EMAIL];		/* User's email address */
 	int flags PACK;				/* Bitwise OR of tcapw_entry_FLAGS_* */
 	unsigned short int secretcode PACK;
                              	/* A secret code emailed to the user
