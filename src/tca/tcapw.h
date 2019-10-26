@@ -54,7 +54,7 @@ typedef int tcapw_uid_t;
  */
 typedef struct {
 	dp_netchar_t uname[tcapw_LEN_USERNAME] PACK;
-} tcapw_uname_t;
+} PACK tcapw_uname_t;
 
 /* A user's password, stored as network byte order UCS2 Unicode,
  * trailing-zero-padded out or truncated to tcapw_LEN_PW chars, as needed.
@@ -68,7 +68,7 @@ typedef struct {
  */
 typedef struct {
 	char hpw[tcapw_LEN_HASHPW];
-} tcapw_hpw_t;
+} PACK tcapw_hpw_t;
 
 /* Hashed passwords are stored on disk as an encrypted array of this
  * structure.
@@ -81,8 +81,8 @@ typedef struct {
 #define tcapw_entry_CLIENT_SET_FLAGS (tcapw_entry_FLAGS_EMAIL_PRIVATE)
 typedef struct {
 	tcapw_uid_t uid PACK;
-	tcapw_uname_t PACK uname;
-	tcapw_hpw_t PACK hpw;
+	tcapw_uname_t uname PACK;
+	tcapw_hpw_t hpw PACK;
 	char email[tcapw_MAXLEN_EMAIL];		/* User's email address */
 	int flags PACK;				/* Bitwise OR of tcapw_entry_FLAGS_* */
 	unsigned short int secretcode PACK;
