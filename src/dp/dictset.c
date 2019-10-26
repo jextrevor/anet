@@ -78,7 +78,7 @@ MSVC's warning level is set to 4.
 #endif
 
 #include "dictset.h"
-
+#include <string.h>
 /* Disable MSVC warning "unreferenced inline function has been removed"
    (Windows *linked* code has six of these ) */
 #if defined(WIN32)
