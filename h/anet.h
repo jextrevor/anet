@@ -227,7 +227,7 @@ typedef dp_char_t char_t;	/* for the moment - will go away */
 typedef struct {
 
 	DP_ALIAS(char, dummy, dwSize);	/* used to be hMaster; now in dp_t */
-	unsigned char adrMaster[dp_MAX_ADR_LEN] PACK;	/*  Address needed to establish comm layer connection. */
+	unsigned char adrMaster[dp_MAX_ADR_LEN];	/*  Address needed to establish comm layer connection. */
 	dpid_t		masterPseudoplayer PACK;
 	/*  Only allow connections to sessions with the same sessionType. */
 	DP_ALIAS3(dp_species_t, sessionType, guidSession, guidApplication);
@@ -240,12 +240,12 @@ typedef struct {
 	DP_ALIAS(short,	flags, dwFlags);
 	/* char_t		sessionName[dp_SNAMELEN]; */
 	DP_ALIAS3(dp_char_t, sessionName[dp_SNAMELEN], szSessionName[dp_SNAMELEN], lpszSessionNameA[dp_SNAMELEN]);
-	char		szUserField[dp_USERFIELDLEN] PACK;	/*  Availible for user data. */
-	char		szPassword[dp_PASSWORDLEN] PACK;		/*  Not supported yet. */
+	char		szUserField[dp_USERFIELDLEN];	/*  Availible for user data. */
+	char		szPassword[dp_PASSWORDLEN];		/*  Not supported yet. */
 	long		dwReserved1 PACK;
 	long		dwUser1 PACK;						/*  Availible for user data. */
 #ifdef dp_ANET2
-	unsigned char	reserved2[dp_MAX_ADR_LEN+2] PACK;
+	unsigned char	reserved2[dp_MAX_ADR_LEN+2];
 #endif
 } dp_session_t;	/* 83 bytes + 2 byte header */
 
@@ -262,8 +262,8 @@ typedef struct {
 typedef struct {
 	DP_ALIAS(dpid_t, id, dpId) PACK;
 	dp_karma_t	karma PACK;
-	unsigned char	adr[dp_MAX_ADR_LEN] PACK;
-	char			name[dp_PNAMELEN] PACK;
+	unsigned char	adr[dp_MAX_ADR_LEN];
+	char			name[dp_PNAMELEN];
 #ifdef dp_ANET2
 	unsigned char bloblen;
 	unsigned char blob[dp_MAX_PLAYERBLOB_LEN];	/* game-specific info */
@@ -354,7 +354,7 @@ typedef dp_addPlayerToGroup_packet_t dp_delPlayerFromGroup_packet_t;
 typedef struct dp_groupId_s {
 	dpid_t		id PACK;				/* msgs to id reach all members */
 	dp_karma_t	karma PACK;				/* used to verify group identity */
-	dp_char_t		name[dp_PNAMELEN] PACK;	/* name of group */
+	dp_char_t		name[dp_PNAMELEN];	/* name of group */
 	dp_karma_t	sessionKarma PACK;		/* group only valid within this session */
 } dp_groupId_t;
 
@@ -392,9 +392,9 @@ typedef struct {
 #define comm_DRIVER_NAMELEN			32
 
 typedef struct {
-	char signature[comm_DRIVER_SIGLEN] PACK;
+	char signature[comm_DRIVER_SIGLEN];
 	size_t recordLen PACK;				/* sizeof(comm_driverInfo_t) */
-	char name[comm_DRIVER_NAMELEN] PACK;/* Name to present to user */
+	char name[comm_DRIVER_NAMELEN];/* Name to present to user */
 	short version PACK;					/* Major, minor rev. in high, low byte */
 	short capabilities PACK;			/* What driver can do/wants to do */
 	short needs PACK;					/* What fields in commInitReq_t to fill in */
@@ -437,8 +437,8 @@ typedef struct {			/* Request (filled in by caller) */
 	long baseadr PACK;          /* ignored by Windows */
 	long hwirq PACK;            /* ignored by Windows */
 	long swint PACK;            /* ignored by Windows */
-	char *phonenum PACK;
-	char *modeministr PACK;
+	char *phonenum;
+	char *modeministr;
 	long flags PACK;			/* controls whether to dial and/or test */
 	long dialing_method PACK;	/* parameter to HMSetDialingMethod */
 } commInitReq_t;
@@ -493,9 +493,9 @@ typedef struct dp_serverInfo_s {
  */
 typedef struct {
 	dp_uid_t uid PACK;
-	wchar_t uname[dp_USER_NAME_LEN] PACK;
-	wchar_t url[dp_USER_URL_LEN] PACK;
-	wchar_t description[dp_USER_DESCRIPTION_LEN] PACK;
+	wchar_t uname[dp_USER_NAME_LEN];
+	wchar_t url[dp_USER_URL_LEN];
+	wchar_t description[dp_USER_DESCRIPTION_LEN];
 } dp_userInfo_t;
 
 /* A record describing a user's cumulative scores in one kind of game.  
@@ -548,11 +548,11 @@ typedef struct {
 	 * For servers,  key is {dp_KEY_SERVERPINGS, reserved bytes...}
 	 */
 	short keylen PACK;
-	char key[dp_KEY_MAXLEN] PACK;/* long key of context for following data */
+	char key[dp_KEY_MAXLEN];/* long key of context for following data */
 
 	/* Subkey is reserved. */
 	short subkeylen PACK;
-	char subkey[dp_KEY_MAXLEN] PACK;
+	char subkey[dp_KEY_MAXLEN];
 
 	/* For players,  data is dp_playerId_t
 	 * For sessions, data is dp_session_t
