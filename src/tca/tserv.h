@@ -120,13 +120,13 @@ typedef struct {
 
 /* Packet sent from server to client after server gets response. */
 typedef struct {
-	tcapw_uid_t PACK uid;		/* tcapw_UID_NONE if login failed */
-	dp_result_t PACK reason;    /* dp_RES_OK or reason for failure */
+	tcapw_uid_t uid PACK;		/* tcapw_UID_NONE if login failed */
+	dp_result_t reason PACK;    /* dp_RES_OK or reason for failure */
 } tserv_packet_validate_t;
 
 /* Packet sent from server to client after server gets pwchange. */
 typedef struct {
-	dp_result_t PACK reason;    /* dp_RES_OK or reason for failure */
+	dp_result_t reason PACK;    /* dp_RES_OK or reason for failure */
 } tserv_packet_pwvalidate_t;
 
 /*
@@ -147,13 +147,13 @@ typedef struct {
  */
 
 typedef struct {
-	unsigned char PACK adr[dp_MAX_ADR_LEN];
-	unsigned char PACK adr2[dp_MAX_ADR_LEN];
-	tcapw_uid_t PACK uid;		/* uid of guy at that address */
+	unsigned char	adr[dp_MAX_ADR_LEN];
+	unsigned char	adr2[dp_MAX_ADR_LEN];
+	tcapw_uid_t uid PACK;		/* uid of guy at that address */
 } tserv_packet_credentials_t;
 
 typedef struct {
-	unsigned char PACK kind;
+	unsigned char kind;
 	union {
 		tca_challenge_t challenge;
 		tca_response_t  response;
@@ -162,7 +162,7 @@ typedef struct {
 		tserv_packet_validate_t   validate;
 		tserv_packet_pwvalidate_t pwvalidate;
 		tserv_packet_credentials_t credentials;
-	} PACK u;
+	} u PACK;
 } tserv_packet_t;
 #include "dpunpack.h"
 
