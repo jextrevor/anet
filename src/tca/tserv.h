@@ -162,7 +162,7 @@ typedef struct {
 		tserv_packet_validate_t   validate;
 		tserv_packet_pwvalidate_t pwvalidate;
 		tserv_packet_credentials_t credentials;
-	} u PACK;
+	} PACK u;
 } tserv_packet_t;
 #include "dpunpack.h"
 
