@@ -218,15 +218,19 @@ typedef dp_char_t char_t;	/* for the moment - will go away */
  */
 #ifndef __NO_ANONYMOUS_UNIONS__
 #define DP_ALIAS(type,name1,name2) union { type name1 PACK; type name2 PACK; }
+#define DP_ALIAS_NOPACK(type,name1,name2) union { type name1; type name2; }
 #define DP_ALIAS3(type,name1,name2,name3) union { type name1 PACK; type name2 PACK; type name3 PACK; }
+#define DP_ALIAS3_NOPACK(type,name1,name2,name3) union { type name1; type name2; type name3; }
 #else
 #define DP_ALIAS(type,name1,name2) type name1 PACK
+#define DP_ALIAS_NOPACK(type,name1,name2) type name1
 #define DP_ALIAS3(type,name1,name2,name3) type name1 PACK
+#define DP_ALIAS3_NOPACK(type,name1,name2,name3) type name1
 #endif
 
 typedef struct {
 
-	DP_ALIAS(char, dummy, dwSize);	/* used to be hMaster; now in dp_t */
+	DP_ALIAS_NOPACK(char, dummy, dwSize);	/* used to be hMaster; now in dp_t */
 	unsigned char adrMaster[dp_MAX_ADR_LEN];	/*  Address needed to establish comm layer connection. */
 	dpid_t		masterPseudoplayer PACK;
 	/*  Only allow connections to sessions with the same sessionType. */
@@ -239,7 +243,7 @@ typedef struct {
 	DP_ALIAS(short,	currentPlayers, dwCurrentPlayers);
 	DP_ALIAS(short,	flags, dwFlags);
 	/* char_t		sessionName[dp_SNAMELEN]; */
-	DP_ALIAS3(dp_char_t, sessionName[dp_SNAMELEN], szSessionName[dp_SNAMELEN], lpszSessionNameA[dp_SNAMELEN]);
+	DP_ALIAS3_NOPACK(dp_char_t, sessionName[dp_SNAMELEN], szSessionName[dp_SNAMELEN], lpszSessionNameA[dp_SNAMELEN]);
 	char		szUserField[dp_USERFIELDLEN];	/*  Availible for user data. */
 	char		szPassword[dp_PASSWORDLEN];		/*  Not supported yet. */
 	long		dwReserved1 PACK;
@@ -381,7 +385,7 @@ typedef dp_session_t dp_sessionLost_packet_t;
 #define dp_SESSIONRESULT_PACKET_ID		dppt_MAKE(dp_PACKET_INITIALBYTE,'0')
 typedef struct {
 	dp_result_t reason PACK;
-	dp_session_t sess PACK;
+	dp_session_t sess;
 } dp_sessionResult_packet_t;
 
 /****************** Low-level comm definitions ***************************/

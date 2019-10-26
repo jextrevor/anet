@@ -201,7 +201,7 @@ typedef struct {
 /*  Kind of like a playerlist packet with only one player. */
 #define dp_ADDPLAYER_PACKET_ID		dppt_MAKE(dp_PACKET_INITIALBYTE,'A')
 typedef struct {
-	dp_playerId_t newPlayer PACK;
+	dp_playerId_t newPlayer;
 	dp_species_t sessionType PACK;
 	dp_karma_t sessionKarma PACK;
 	char		szPassword[dp_PASSWORDLEN];		/*  Not supported yet. */
@@ -230,7 +230,7 @@ typedef struct {
 	dp_karma_t		karma PACK;
 	dpid_t			highest PACK;		/*  Maximum dpid in use in game. */
 	short			nPlayers PACK;		/*  Number of players in packet, not game. */
-	dp_playerId_t	players[1 /* n_players */ ] PACK;	/*  VARIABLE LENGTH ARRAY */
+	dp_playerId_t	players[1 /* n_players */ ];	/*  VARIABLE LENGTH ARRAY */
 } dp_playerList_packet_t;
 #define sizeof_dp_playerList_packet_t(n_players) 				\
 	(sizeof(dp_playerList_packet_t) +									\
@@ -324,7 +324,7 @@ typedef struct {
 /* A data packet wrapped the way dp likes it. */
 typedef struct {
 	dp_packetType_t tag PACK;
-	dpio_data_packet_t body PACK;
+	dpio_data_packet_t body;
 } dpio_wrapped_data_packet_t;
 #define sizeof_dpio_wdp(len) (sizeof(dp_packetType_t)+sizeof(dpio_data_packet_t)+len-dpio_MAXLEN_RELIABLE)
 
@@ -453,7 +453,7 @@ typedef dp_join_packet_t dp_leave_packet_t;
  */
 #define dp_SELECTED_SESSION_PACKET_ID	dppt_MAKE(dp_PACKET_INITIALBYTE,'s')
 typedef struct{
-	dp_session_t sess PACK;
+	dp_session_t sess;
 	unsigned char keylen;
 	char key[1];			/* key; dummy size. */
 } dp_select_sess_packet_t;
